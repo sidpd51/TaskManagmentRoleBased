@@ -1,0 +1,53 @@
+﻿@model (List<TaskManagmentRoleBased.Models.Employee> emp , List<TaskManagmentRoleBased.Models.Task> tasks)
+@{
+    ViewBag.Title = "ManageManagerTask";
+    Layout = "~/Views/Shared/_directorLayout.cshtml";
+}
+
+<h2>All Employee Task</h2>
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Reporting Person</th>
+                <th>Task Date</th>
+                <th>Task Name</th>
+                <th>Task Description</th>
+                <th>Status</th>
+                <th>Created On</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var task in Model.tasks)
+                {
+                    foreach (var emp in Model.emp)
+                    {
+                        foreach (var em in Model.emp)
+                        {
+                            if (task.EmployeeID == emp.EmployeeID && task.ApproverID == em.EmployeeID)
+                            {
+                                <tr>
+                                    <td>@emp.FirstName @emp.LastName</td>
+                                    <td>@em.FirstName @em.LastName</td>
+                                    <td>@task.TaskDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@task.TaskName</td>
+                                    <td>@task.TaskDescription</td>
+                                    <td>@task.Status</td>
+                                    <td>@task.CreatedOn.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        <button type="button" data-id="@task.TaskID" class="btn btn-gradient-success approveDirector" @(task.Status == "Approved       " || task.Status == "Rejected       " ? "disabled" : "")> Approve</button>
+                                        <button type="button" data-id="@task.TaskID" class="btn btn-gradient-danger rejectDirector" @(task.Status == "Approved       " || task.Status == "Rejected       " ? "disabled" : "")>Reject</button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                }
+            }
+
+        </tbody>
+    </table>
+</div>

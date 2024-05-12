@@ -1,0 +1,99 @@
+﻿@model (TaskManagmentRoleBased.Models.Employee emp, List<TaskManagmentRoleBased.Models.Employee> all_emp, List<TaskManagmentRoleBased.Models.Task> tasks)
+
+@{
+    ViewBag.Title = "Task";
+    if (Model.emp.DepartmentId == 3)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+    }
+}
+
+<h2>Tasks</h2>
+
+<button type="button" class="btn btn-sm btn-primary btn-rounded btn-fw mb-4 addtask" data-id="0">ADD TASK</button>
+
+<div class="modal" tabindex="-1" id="myModal" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Task Log</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Task Date</th>
+                <th>Task Name</th>
+                <th>Approver Name</th>
+                <th>Approved / Rejected By</th>
+                <th>Status</th>
+                <th>Crated On</th>
+                <th>Modified On</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var task in Model.tasks)
+                {
+                    if (task.ApprovedOrRejectedBy != null)
+                    {
+                        foreach (var emp in Model.all_emp)
+                        {
+                            if (emp.EmployeeID == task.ApprovedOrRejectedBy)
+                            {
+                                <tr>
+                                    <td>@Session["username"].ToString()</td>
+                                    <td>@task.TaskDate.ToString("dd-MM-yyyy")</td>
+                                    <td>@task.TaskName</td>
+                                    <td>@task.Employee1.FirstName @task.Employee1.LastName </td>
+                                    <td>@emp.FirstName @emp.LastName</td>
+                                    <td>@task.Status</td>
+                                    <td>@task.CreatedOn.ToString("dd-MM-yyyy")</td>
+                                    <td>@task.ModifiedOn.ToString("dd-MM-yyyy")</td>
+                                    <td>
+                                        <button type="button" data-id="@task.TaskID" class="btn btn-gradient-success addtask" @(task.Status == "Approved       " || task.Status == "Rejected       " ? "disabled" : "")>Edit</button>
+                                        <button type="button" data-id="@task.TaskID" class="btn btn-gradient-danger deleteTask" @(task.Status == "Approved       " || task.Status == "Rejected       " ? "disabled" : "")>Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@Session["username"].ToString()</td>
+                            <td>@task.TaskDate.ToString("dd-MM-yyyy")</td>
+                            <td>@task.TaskName</td>
+                            <td>@task.Employee1.FirstName @task.Employee1.LastName </td>
+                            <td>@task.ApprovedOrRejectedBy</td>
+                            <td>@task.Status</td>
+                            <td>@task.CreatedOn.ToString("dd-MM-yyyy")</td>
+                            <td>@task.ModifiedOn.ToString("dd-MM-yyyy")</td>
+                            <td>
+                                <button type="button" data-id="@task.TaskID" class="btn btn-gradient-success addtask" @(task.Status == "Approved       " || task.Status == "Rejected       " ? "disabled" : "")>Edit</button>
+                                <button type="button" data-id="@task.TaskID" class="btn btn-gradient-danger deleteTask" @(task.Status == "Approved       " || task.Status == "Rejected       " ? "disabled" : "")>Delete</button>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+
+
+
+

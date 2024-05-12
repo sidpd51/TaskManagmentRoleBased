@@ -29,7 +29,7 @@ namespace TaskManagmentRoleBased.Models
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Nullable<System.DateTime> BirthDate { get; set; }
+        public System.DateTime BirthDate { get; set; }
         public string Gender { get; set; }
         public Nullable<int> DepartmentId { get; set; }
         public Nullable<int> ReportingPerson { get; set; }

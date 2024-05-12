@@ -1,0 +1,39 @@
+﻿@model TaskManagmentRoleBased.Models.Task
+
+<form class="pt-3" method="post" id="formData" action="/Home/SubmitTask">
+
+    <div class="form-group">
+        <input type="hidden" class="form-control form-control-lg" id="id" name="id" value="@Model.id" placeholder="Empmloyee Code">
+
+    </div>
+    <label class=" col-form-label">Task Date</label>
+    <div class="form-group">
+        <div class="">
+            @{
+                string taskdate1 = Model.taskDate == DateTime.MinValue ? "" : Model.taskDate.ToString("yyyy-MM-dd");
+            }
+
+           @Html.TextBoxFor(m => m.TaskDate, taskdate1, new { @class = "form-control", @type = "date" })
+        </div>
+        @Html.ValidationMessageFor(m => m.TaskDate, "", new { @class = "text-danger" })
+    </div>
+
+    <label class=" col-form-label">Task Name</label>
+    <div class="form-group">
+        @Html.TextBoxFor(m => m.TaskName, "", new { @class = "form-control", placeholder = "Task Name" })
+        @Html.ValidationMessageFor(m => m.TaskName, "", new { @class = "text-danger" })
+    </div>
+
+    <label class=" col-form-label">Task Description</label>
+    <div class="form-group">
+        @Html.TextAreaFor(m => m.TaskDescription, new { @class = "form-control form-control-lg", placeholder = "Task description" })
+        @Html.ValidationMessageFor(m => m.TaskDescription, "", new { @class = "text-danger" })
+    </div>
+
+
+    <div class="mt-3 d-grid gap-2">
+        <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Submit</button>
+    </div>
+
+</form>
+

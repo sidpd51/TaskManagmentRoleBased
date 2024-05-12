@@ -15,15 +15,15 @@ namespace TaskManagmentRoleBased.Models
     public partial class Task
     {
         public int TaskID { get; set; }
-        public Nullable<System.DateTime> TaskDate { get; set; }
+        public System.DateTime TaskDate { get; set; }
         public Nullable<int> EmployeeID { get; set; }
         public string TaskName { get; set; }
         public string TaskDescription { get; set; }
         public Nullable<int> ApproverID { get; set; }
         public Nullable<int> ApprovedOrRejectedBy { get; set; }
         public string Status { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
-        public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public System.DateTime CreatedOn { get; set; }
+        public System.DateTime ModifiedOn { get; set; }
         public Nullable<System.DateTime> ApprovedOrRejectedOn { get; set; }
     
         public virtual Employee Employee { get; set; }

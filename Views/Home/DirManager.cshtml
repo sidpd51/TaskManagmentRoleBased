@@ -1,0 +1,58 @@
+﻿@model List<TaskManagmentRoleBased.Models.Employee>
+@{
+    ViewBag.Title = "DirManager";
+    Layout = "~/Views/Shared/_directorLayout.cshtml";
+}
+
+<h2>Manager</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Employee Code</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Reporting person</th>
+                <th>Department</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach( var emp in Model)
+            {
+                if(emp.DepartmentId == 2)
+                {
+                    <tr>
+                        <td>@emp.EmployeeCode</td>
+                        <td>@emp.FirstName @emp.LastName </td>
+                        <td>@emp.Gender</td>
+                        <td>@emp.Employee2.FirstName @emp.Employee2.LastName </td>
+                        <td>@emp.Department.Name.ToString()</td>
+                        <td>@emp.Email</td>
+                        <td>
+                            <button type="button" data-id="@emp.EmployeeID" class="btn btn-sm btn-success edit">Edit</button>
+                            <button type="button" data-id="@emp.EmployeeID" class="btn btn-sm btn-danger delete">Delete</button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal" tabindex="-1" id="myModal" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Employee Data</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+
+        </div>
+    </div>
+</div>

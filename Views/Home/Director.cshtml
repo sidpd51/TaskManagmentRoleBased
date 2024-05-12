@@ -1,0 +1,60 @@
+﻿@model List<TaskManagmentRoleBased.Models.Employee>
+@{
+    ViewBag.Title = "Director";
+    Layout = "~/Views/Shared/_directorLayout.cshtml";
+}
+
+<h2>Employees</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Employee Code</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Reporting person</th>
+                <th>Department</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var i in Model)
+                {
+                    if (i.DepartmentId != 1 && i.DepartmentId != 5)
+                    {
+                        <tr>
+                            <td>@i.EmployeeCode</td>
+                            <td>@i.FirstName @i.LastName</td>
+                            <td>@i.Gender</td>
+                            <td>@(i.ReportingPerson == null || i.ReportingPerson == 0 ? "Not Assigned": i.Employee2.LastName.ToString())</td>
+                            <td>@(i.DepartmentId == null ?"Employee": i.Department.Name.ToString())</td>
+                            <td>@i.Email</td>
+                            <td>
+                                <button type="button" data-id="@i.EmployeeID" class="btn btn-sm btn-success edit">Edit</button>
+                                <button type="button" data-id="@i.EmployeeID" class="btn btn-sm btn-danger delete">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div class="modal" tabindex="-1" id="myModal" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Employee Data</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -4,13 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="office_sidpd_newModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="office_sidpd_newModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="DepartmentID" />
           </Key>
           <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -18,12 +18,12 @@
           </Key>
           <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeCode" Type="varchar" MaxLength="13" StoreGeneratedPattern="Computed" />
-          <Property Name="Email" Type="varchar" MaxLength="100" />
-          <Property Name="Password" Type="nvarchar" MaxLength="100" />
-          <Property Name="FirstName" Type="varchar" MaxLength="50" />
-          <Property Name="LastName" Type="varchar" MaxLength="50" />
-          <Property Name="BirthDate" Type="date" />
-          <Property Name="Gender" Type="varchar" MaxLength="10" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="DepartmentId" Type="int" />
           <Property Name="ReportingPerson" Type="int" />
         </EntityType>
@@ -32,18 +32,18 @@
             <PropertyRef Name="TaskID" />
           </Key>
           <Property Name="TaskID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TaskDate" Type="date" />
+          <Property Name="TaskDate" Type="date" Nullable="false" />
           <Property Name="EmployeeID" Type="int" />
-          <Property Name="TaskName" Type="varchar" MaxLength="100" />
-          <Property Name="TaskDescription" Type="varchar(max)" />
+          <Property Name="TaskName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TaskDescription" Type="varchar(max)" Nullable="false" />
           <Property Name="ApproverID" Type="int" />
           <Property Name="ApprovedOrRejectedBy" Type="int" />
-          <Property Name="Status" Type="varchar" MaxLength="20" />
-          <Property Name="CreatedOn" Type="datetime" />
-          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
           <Property Name="ApprovedOrRejectedOn" Type="datetime" />
         </EntityType>
-        <Association Name="FK__Employee__Depart__44FF419A">
+        <Association Name="FK__Employee__Depart__02084FDA">
           <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -55,7 +55,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Employee__Report__45F365D3">
+        <Association Name="FK__Employee__Report__02FC7413">
           <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
           <End Role="Employee1" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -67,7 +67,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Task__ApprovedOr__4CA06362">
+        <Association Name="FK__Task__ApprovedOr__09A971A2">
           <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
           <End Role="Task" Type="Self.Task" Multiplicity="*" />
           <ReferentialConstraint>
@@ -79,7 +79,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Task__ApproverID__4BAC3F29">
+        <Association Name="FK__Task__ApproverID__08B54D69">
           <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
           <End Role="Task" Type="Self.Task" Multiplicity="*" />
           <ReferentialConstraint>
@@ -91,7 +91,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Task__EmployeeID__4AB81AF0">
+        <Association Name="FK__Task__EmployeeID__07C12930">
           <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
           <End Role="Task" Type="Self.Task" Multiplicity="*" />
           <ReferentialConstraint>
@@ -107,29 +107,28 @@
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Employee__Depart__44FF419A" Association="Self.FK__Employee__Depart__44FF419A">
+          <AssociationSet Name="FK__Employee__Depart__02084FDA" Association="Self.FK__Employee__Depart__02084FDA">
             <End Role="Department" EntitySet="Department" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK__Employee__Report__45F365D3" Association="Self.FK__Employee__Report__45F365D3">
+          <AssociationSet Name="FK__Employee__Report__02FC7413" Association="Self.FK__Employee__Report__02FC7413">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Employee1" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK__Task__ApprovedOr__4CA06362" Association="Self.FK__Task__ApprovedOr__4CA06362">
+          <AssociationSet Name="FK__Task__ApprovedOr__09A971A2" Association="Self.FK__Task__ApprovedOr__09A971A2">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Task" EntitySet="Task" />
           </AssociationSet>
-          <AssociationSet Name="FK__Task__ApproverID__4BAC3F29" Association="Self.FK__Task__ApproverID__4BAC3F29">
+          <AssociationSet Name="FK__Task__ApproverID__08B54D69" Association="Self.FK__Task__ApproverID__08B54D69">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Task" EntitySet="Task" />
           </AssociationSet>
-          <AssociationSet Name="FK__Task__EmployeeID__4AB81AF0" Association="Self.FK__Task__EmployeeID__4AB81AF0">
+          <AssociationSet Name="FK__Task__EmployeeID__07C12930" Association="Self.FK__Task__EmployeeID__07C12930">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Task" EntitySet="Task" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="office_sidpd_newModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -138,7 +137,7 @@
             <PropertyRef Name="DepartmentID" />
           </Key>
           <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Employees" Relationship="Self.FK__Employee__Depart__44FF419A" FromRole="Department" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Employee">
@@ -147,12 +146,12 @@
           </Key>
           <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeCode" Type="String" MaxLength="13" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BirthDate" Type="DateTime" Precision="0" />
-          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DepartmentId" Type="Int32" />
           <Property Name="ReportingPerson" Type="Int32" />
           <NavigationProperty Name="Department" Relationship="Self.FK__Employee__Depart__44FF419A" FromRole="Employee" ToRole="Department" />
@@ -167,15 +166,15 @@
             <PropertyRef Name="TaskID" />
           </Key>
           <Property Name="TaskID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TaskDate" Type="DateTime" Precision="0" />
+          <Property Name="TaskDate" Type="DateTime" Precision="0" Nullable="false" />
           <Property Name="EmployeeID" Type="Int32" />
-          <Property Name="TaskName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="TaskDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TaskName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaskDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ApproverID" Type="Int32" />
           <Property Name="ApprovedOrRejectedBy" Type="Int32" />
-          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="ApprovedOrRejectedOn" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Employee" Relationship="Self.FK__Task__ApprovedOr__4CA06362" FromRole="Task" ToRole="Employee" />
           <NavigationProperty Name="Employee1" Relationship="Self.FK__Task__ApproverID__4BAC3F29" FromRole="Task" ToRole="Employee" />

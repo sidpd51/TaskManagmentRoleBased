@@ -12,8 +12,9 @@ namespace TaskManagmentRoleBased.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private office_sidpd_newEntities db = new office_sidpd_newEntities(); //access modified taken as private here and in authentication controller check it out
-        
+        private office_sidpd_newEntities db = new office_sidpd_newEntities(); //access modifier taken as private here and in authentication controller check it out
+
+        [Authorize(Roles = "Employee")]
         public ActionResult Index()
         {
             int employeeId = (int)Convert.ToInt64(Session["id"]);
@@ -23,9 +24,10 @@ namespace TaskManagmentRoleBased.Controllers
                 return View(emp); // return the view named "index" with the newly created Employee object
             }
             Employee employee = db.Employees.Find(employeeId);
-            return View();
+            return View(employee);
         }
 
+        [Authorize(Roles = "Manager")]
         public ActionResult Manager()
         {
             int id = (int)Convert.ToInt64(Session["id"]);
@@ -34,6 +36,7 @@ namespace TaskManagmentRoleBased.Controllers
             return View(emp);
         }
 
+        [Authorize(Roles = "Manager")]
         public ActionResult EmployeeTask()
         {
             var id = (int)Convert.ToInt64(Session["id"]);
@@ -55,13 +58,14 @@ namespace TaskManagmentRoleBased.Controllers
             return RedirectToAction("Task");//Why returning to Task action method if it doesn't exists? below is the action method :)
         }
 
+        [Authorize(Roles = "Employee, Manager")]
         public ActionResult Task()
         {
             var id = (int)Convert.ToInt64(Session["id"]);
             Employee emp = db.Employees.Where(m => m.EmployeeID == id).FirstOrDefault();
             List<Employee> employees = db.Employees.ToList();
             List<Task> tasks = db.Tasks.Where(m => m.EmployeeID == emp.EmployeeID).ToList();
-            var data = (emp, employees, tasks);
+            var data = (emp, employees, tasks);//sending using touple
             return View(data);
         }
 
@@ -141,6 +145,7 @@ namespace TaskManagmentRoleBased.Controllers
 
         }
 
+        [Authorize(Roles = "Director")]
         public ActionResult Director()
         {
             List<Employee>  employees = db.Employees.ToList();
@@ -173,6 +178,7 @@ namespace TaskManagmentRoleBased.Controllers
 
         }
 
+        [Authorize(Roles = "Director")]
         public ActionResult DirManager()
         {
             List<Employee> employees = db.Employees.ToList();
@@ -222,6 +228,7 @@ namespace TaskManagmentRoleBased.Controllers
                 
         }
 
+        [Authorize(Roles = "Director")]
         public ActionResult ManageManagerTask()
         {
             List<Task> tasks = db.Tasks.ToList();

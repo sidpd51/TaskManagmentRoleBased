@@ -1,0 +1,92 @@
+﻿@model (TaskManagmentRoleBased.Models.Employee currentEmployee, List<TaskManagmentRoleBased.Models.Employee> employees, List<TaskManagmentRoleBased.Models.Department> departments)
+<form class="pt-3" method="post" id="formData" action="/Home/UpdateData">
+    <label class=" col-form-label">Employee Code</label>
+    <div class="form-group">
+        <input type="text" class="form-control form-control-lg" id="employeeCode" name="employeeCode" value="@Model.currentEmployee.EmployeeCode" placeholder="Empmloyee Code" disabled>
+        <input type="hidden" class="form-control form-control-lg" id="employeeCode" name="employeeCode" value="@Model.currentEmployee.EmployeeCode" placeholder="Empmloyee Code">
+
+    </div>
+    <label class=" col-form-label">FIrst Name</label>
+    <div class="form-group">
+        <input type="text" class="form-control form-control-lg" id="firstname" name="firstname" value="@Model.currentEmployee.FirstName" placeholder="Firstname" disabled>
+    </div>
+    <label class=" col-form-label">Last Name</label>
+    <div class="form-group">
+        <input type="text" class="form-control form-control-lg" id="lastname" name="lastname" value="@Model.currentEmployee.LastName" placeholder="Lastname" disabled>
+    </div>
+    <label class=" col-form-label">Email</label>
+    <div class="form-group">
+        <input type="email" class="form-control form-control-lg" id="email" name="email" value="@Model.currentEmployee.Email" placeholder="Email" disabled>
+
+    </div>
+    <label class=" col-form-label">Password</label>
+    <div class="form-group">
+        <input type="password" class="form-control form-control-lg" id="password" name="password" value="@Model.currentEmployee.Password" placeholder="Password" disabled>
+
+    </div>
+    <label class=" col-form-label">Date of Birth</label>
+    <div class="form-group">
+        <div class="">
+            @{
+                string birthdate = Model.currentEmployee.BirthDate == DateTime.MinValue ? "" : Model.currentEmployee.BirthDate.ToString("yyyy-MM-dd");
+            }
+            @Html.TextBoxFor(t => t.currentEmployee.BirthDate, birthdate, new { @class = "form-control", @type = "date", disabled = "disabled" })
+        </div>
+    </div>
+    <label class=" col-form-label">Gender</label>
+    <div class="form-check form-check-primary">
+        <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="gender" value="male" id="male" @(Model.currentEmployee.Gender == "male" ? "checked" : "") disabled> Male
+        </label>
+    </div>
+    <div class="form-check form-check-primary">
+        <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="gender" value="female" id="female" @(Model.currentEmployee.Gender == "female" ? "checked" : "") disabled> Female
+        </label>
+    </div>
+
+    <label class="col-form-label">Department</label>
+    <div class="form-group row m-0">
+
+
+     @Html.DropDownList("department", Model.departments.Select(dep => new SelectListItem
+     {
+         Text = dep.Name,
+         Value = dep.DepartmentID.ToString(),
+         Selected = dep.Name == Model.currentEmployee.Department.Name
+     }), "Select Department", new { @class = "form-select form-select-lg", id = "department", required = "required" })
+
+    </div>
+    <label class="col-form-label">Reprting Person</label>
+    <div class="form-group row m-0">
+        @if (Model.currentEmployee.Employee2 == null)
+        {
+            <select class="form-select form-select-lg" id="reportingPerson" name="reportingPerson" placeholder="Reporting Person" value="Not Assigned">
+                @foreach (var emp in Model.employees)
+                {
+                    
+                    <option>@emp.EmployeeCode - @emp.FirstName @emp.LastName</option>
+                    
+
+                }
+            </select>
+        }
+        else
+        {
+            <select class="form-select form-select-lg" id="reportingPerson" name="reportingPerson" placeholder="Reporting Person" value="@Model.currentEmployee.Employee2.EmployeeCode - @Model.currentEmployee.Employee2.FirstName @Model.currentEmployee.Employee2.LastName">
+                @foreach (var emp in Model.employees)
+                {
+                    <option>@emp.EmployeeCode - @emp.FirstName @emp.LastName</option>
+                }
+            </select>
+        }
+
+
+    </div>
+
+
+    <div class="mt-3 d-grid gap-2">
+        <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Submit</button>
+    </div>
+
+</form>

@@ -1,19 +1,11 @@
-﻿@model TaskManagmentRoleBased.Models.Employee
+﻿
 @{
-    ViewBag.Title = "Home Page";
-
-    if (Model.DepartmentId == 3)// if user is employee redirect to layout
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-    else
-    {
-        Layout = "~/Views/Shared/_ManagerLayout.cshtml";
-    }
-
+    ViewBag.Title = "Manager";
+    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
 }
 
-<h2>Employee</h2>
+@model TaskManagmentRoleBased.Models.Employee
+<h2>Manager</h2>
 <div class="table-responsive">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
@@ -27,31 +19,22 @@
             </tr>
         </thead>
         <tbody>
-            @{ if (Model != null)
+            @{
+                if (Model != null)
                 {
                     <tr>
                         <td>@Model.EmployeeCode</td>
                         <td>@Model.FirstName @Model.LastName</td>
                         <td>@Model.Email</td>
                         <td>@Model.BirthDate.ToString("dd/MM/yy")</td>
-                        <td>
-                            @if (Model.Employee2 != null)
-                            {
-                                @(Model.Employee2.FirstName ?? "")
-                                @(Model.Employee2.LastName ?? "")
-                            }
-                            else
-                            {
-                                <p>Not Assigned</p>
-                            }
-                        </td>
-                        <td>@(Model.DepartmentId ==3 ?"Employee":"Manager")</td>
+                        <td>@Model.Employee2.FirstName @Model.Employee2.LastName</td>
+                        <td>@(Model.DepartmentId == 2 ? "Manager":"Employee")</td>
                     </tr>
                 }
                 else
                 {
                     <tr>
-                        <td>Please Logout First ...</td>
+                        <td>Please Logout First....</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -62,5 +45,4 @@
             }
         </tbody>
     </table>
-</div>
 

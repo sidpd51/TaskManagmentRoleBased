@@ -1,6 +1,4 @@
-﻿
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -46,7 +44,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Employee</span>
+                    <span>Manager</span>
                 </a>
             </li>
 
@@ -54,13 +52,12 @@
             <hr class="sidebar-divider">
 
 
-
-
             <!-- Heading -->
             <div class="sidebar-heading">
                 Addons
             </div>
 
+            
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
@@ -70,6 +67,13 @@
                 </a>
             </li>
 
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="/Home/EmployeeTask">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Employees Tasks</span>
+                </a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -79,8 +83,7 @@
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
-            <!-- Sidebar Message -->
-
+            
 
         </ul>
         <!-- End of Sidebar -->
@@ -276,7 +279,7 @@
                                     }
                                 </span>
                                 <img class="img-profile rounded-circle"
-                                     src="~/Content/img/undraw_profile.svg">
+                                      src="~/Content/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -357,13 +360,12 @@
             </div>
         </div>
     </div>
-    @Scripts.Render("~/bundles/jqueryval");
-    @Scripts.Render("~/bundles/jquery")
 
-    @Scripts.Render("~/bundles/customejs")
     @Scripts.Render("~/bundles/Homethemejs")
 
     @RenderSection("scripts", required: false)
 </body>
 
 </html>
+
+
