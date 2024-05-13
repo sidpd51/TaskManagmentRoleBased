@@ -48,14 +48,14 @@ namespace TaskManagmentRoleBased.Controllers
             var data = (employees, tasks);//creating tuples
 
             return View(data);
-        }
+        } 
 
-        public ActionResult DeleteTask(int TaskId)
+        public ActionResult DeleteTask(int id)
         {
-            var task = db.Tasks.Where(m => m.TaskID == TaskId).FirstOrDefault();
+            var task = db.Tasks.Where(e => e.TaskID == id).FirstOrDefault();
             db.Tasks.Remove(task);
             db.SaveChanges();
-            return RedirectToAction("Task");//Why returning to Task action method if it doesn't exists? below is the action method :)
+            return RedirectToAction("Task");
         }
 
         [Authorize(Roles = "Employee, Manager")]
@@ -69,17 +69,17 @@ namespace TaskManagmentRoleBased.Controllers
             return View(data);
         }
 
-        public ActionResult GetTaskData (int TaskId)
+        public ActionResult GetTaskData(int id)
         {
-            if(TaskId == 0)
+            if(id == 0)
             {
                 Task task = new Task();
                 return PartialView("_PartialPageTask", task);
             }
             else
             {
-                Task task = db.Tasks.Find(TaskId);
-                return PartialView("_PartialPageTask", task );
+                Task task = db.Tasks.Find(id);
+                return PartialView("_PartialPageTask", task);
             }
         }
 
@@ -90,19 +90,19 @@ namespace TaskManagmentRoleBased.Controllers
             {
                 var id = (int) Convert.ToInt64(Session["id"]);
                 Employee emp = db.Employees.Where(m => m.EmployeeID == id).FirstOrDefault();
+               
                 task.EmployeeID = emp.EmployeeID;
-                // task.Status = 'Pending';  By default my db has this
+                task.Status = "Pending";  
                 if(task.TaskID == 0)
                 {
-                    task.CreatedOn = DateTime.Now;// i think By default my db has this 
-                }
+                    task.CreatedOn = DateTime.Now;                }
                 else
                 {
                     Task currentTask = db.Tasks.Where(t => t.TaskID == task.TaskID).FirstOrDefault();
                     task.CreatedOn = currentTask.CreatedOn;
 
                 }
-                task.ApproverID = emp.Employee2.EmployeeID;// why using employee2
+                task.ApproverID = emp.Employee2.EmployeeID;
                 task.ModifiedOn = DateTime.Now;
                 db.Tasks.AddOrUpdate(task);
                 db.SaveChanges();

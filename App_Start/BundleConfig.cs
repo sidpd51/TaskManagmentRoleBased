@@ -55,15 +55,17 @@ namespace TaskManagmentRoleBased
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/customjs").Include(
-                        "~/Scripts/off-canvas.js",
-                        "~/Scripts/misc.js",
-                        "~/Scripts/settings.js",
-                        "~/Scripts/todolist.js",
-                        "~/Scripts/jquery.cookie.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/customjs").Include(
+            //            "~/Scripts/off-canvas.js",
+            //            "~/Scripts/misc.js",
+            //            "~/Scripts/settings.js",
+            //            "~/Scripts/todolist.js",
+            //            "~/Scripts/jquery.cookie.js"));
 
             bundles.Add(new Bundle("~/bundles/customejs").Include(
-                      "~/Scripts/customjs.js", "~/Scripts/Notification.js"));
+                      "~/Scripts/custom.js", "~/Scripts/Notification.js"));
+            bundles.Add(new StyleBundle("~/Content/customcss").Include(
+                      "~/Content/Notification.css"));
         }
     }
 }

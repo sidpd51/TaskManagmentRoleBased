@@ -1,12 +1,6 @@
 $(document).ready(function () {
 
 
-
-
-    let table = $('#myTable').DataTable();
-
-    
-  
     $(document).on('click', '.addtask', function () {
         var id = $(this).data('id');
         $('.modal-body').html('');
@@ -20,7 +14,6 @@ $(document).ready(function () {
             url: "/Home/GetTaskData/" + id,
             contentType: false,
             success: function (response) {
-                debugger
                 console.log(response);
                 $('.modal-body').append(response);
                 $('#myModal').modal('show');
@@ -31,7 +24,7 @@ $(document).ready(function () {
         })
     })
 
-    
+
 
     $(document).on('click', '.approve', function () {
         var id = $(this).data('id');
@@ -91,55 +84,52 @@ $(document).ready(function () {
     })
 
     $(document).on('click', '.edit', function () {
-            debugger;
-            var id = $(this).data('id');
-            $('.modal-body').html('');  
-            console.log(id)
-            if (id == undefined) {
-                id = 0;
-            }
-            $.ajax({
-                method: "GET",
-                url: "/Home/GetData/"+id,
-                contentType: false,
-                success: function (response) {
-                    debugger
-                    console.log(response);
-                    $('.modal-body').append(response);
-                    $('#myModal').modal('show');
-                    $.validator.unobtrusive.parse($("#formData"));
-                    $(document).on("change", "#department", function () {
-                        debugger;
-                        let id = $(this).val();
-                        console.log(id)
-                        $.ajax({
-                            method: 'GET',
-                            url: "/Home/GetReportingPerson/" + id,
-                            success: function (response) {
-                                console.log(response.data);
-                                $("#reportingPerson").empty();
-                                let data = response.data;
+        var id = $(this).data('id');
+        $('.modal-body').html('');
+        console.log(id)
+        if (id == undefined) {
+            id = 0;
+        }
+        $.ajax({
+            method: "GET",
+            url: "/Home/GetData/" + id,
+            contentType: false,
+            success: function (response) {
+                console.log(response);
+                $('.modal-body').append(response);
+                $('#myModal').modal('show');
+                $.validator.unobtrusive.parse($("#formData"));
+                $(document).on("change", "#department", function () {
+                    let id = $(this).val();
+                    console.log(id)
+                    $.ajax({
+                        method: 'GET',
+                        url: "/Home/GetReportingPerson/" + id,
+                        success: function (response) {
+                            console.log(response.data);
+                            $("#reportingPerson").empty();
+                            let data = response.data;
 
-                                for (let i = 0; i <= data.length; i++) {
-                                    console.log(data[i]);
-                                    let option = `<option value=${data[i].Value}>${data[i].Text}</option>`;
+                            for (let i = 0; i <= data.length; i++) {
+                                console.log(data[i]);
+                                let option = `<option value=${data[i].Value}>${data[i].Text}</option>`;
+                                $('#reportingPerson').append(option);
+                                if (data.length == 0) {
+                                    $('#reportingPerson').empty();
+                                    $('#reportingPerson').prop("disable", true);
+                                    let option = `<option value=${data[i].Value}>not assigned</option>`;
                                     $('#reportingPerson').append(option);
-                                    if (data.length == 0) {
-                                        $('#reportingPerson').empty();
-                                        $('#reportingPerson').prop("disable", true);
-                                        let option = `<option value=${data[i].Value}>not assigned</option>`;
-                                        $('#reportingPerson').append(option);
-                                    }
                                 }
                             }
-                        })
-                    });
+                        }
+                    })
+                });
 
-                }
+            }
 
-            })
         })
-   
+    })
+
 })
 
 $('table tbody').on('click', '.delete', function () {
@@ -170,7 +160,7 @@ $('table tbody').on('click', '.deleteTask', function () {
         confirmButtonText: "Yes, delete it!"
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location = "/Home/deleteTask/" + id;
+            window.location = "/Home/DeleteTask/" + id;
         }
     })
 })
