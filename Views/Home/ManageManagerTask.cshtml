@@ -38,8 +38,8 @@
                                     <td>@task.Status</td>
                                     <td>@task.CreatedOn.ToString("dd/MM/yyyy")</td>
                                     <td>
-                                        <button type="button" data-id="@task.TaskID" class="btn btn-gradient-success approveDirector" @(task.Status == "Approved       " || task.Status == "Rejected       " ? "disabled" : "")> Approve</button>
-                                        <button type="button" data-id="@task.TaskID" class="btn btn-gradient-danger rejectDirector" @(task.Status == "Approved       " || task.Status == "Rejected       " ? "disabled" : "")>Reject</button>
+                                        <button type="button" data-id="@task.TaskID" class="btn btn-sm btn-success approveDirector" @(task.Status == "Approved       " || task.Status == "Rejected       " ? "disabled" : "")> Approve</button>
+                                        <button type="button" data-id="@task.TaskID" class="btn btn-sm btn-danger rejectDirector" @(task.Status == "Approved       " || task.Status == "Rejected       " ? "disabled" : "")>Reject</button>
                                     </td>
                                 </tr>
                             }

@@ -45,7 +45,7 @@ $(document).ready(function () {
 
         $.ajax({
             method: "POST",
-            url: "/Home/approve/" + id,
+            url: "/Home/Approve/" + id,
             contentType: false,
             success: function (response) {
                 window.location.href = "/Home/ManageManagerTask"
@@ -59,15 +59,14 @@ $(document).ready(function () {
 
         $.ajax({
             method: "POST",
-            url: "/Home/reject/" + id,
+            url: "/Home/Reject/" + id,
             contentType: false,
             success: function (response) {
                 window.location.href = "/Home/EmployeeTask"
             }
-
         })
-
     })
+
     $(document).on('click', '.rejectDirector', function () {
         var id = $(this).data('id');
 
@@ -78,15 +77,16 @@ $(document).ready(function () {
             success: function (response) {
                 window.location.href = "/Home/ManageManagerTask"
             }
-
         })
 
     })
 
     $(document).on('click', '.edit', function () {
+        debugger
         var id = $(this).data('id');
         $('.modal-body').html('');
         console.log(id)
+        debugger
         if (id == undefined) {
             id = 0;
         }
@@ -95,11 +95,13 @@ $(document).ready(function () {
             url: "/Home/GetData/" + id,
             contentType: false,
             success: function (response) {
+                debugger
                 console.log(response);
                 $('.modal-body').append(response);
                 $('#myModal').modal('show');
                 $.validator.unobtrusive.parse($("#formData"));
                 $(document).on("change", "#department", function () {
+                    debugger
                     let id = $(this).val();
                     console.log(id)
                     $.ajax({
@@ -133,6 +135,7 @@ $(document).ready(function () {
 })
 
 $('table tbody').on('click', '.delete', function () {
+    debugger
     var id = $(this).data('id');
     Swal.fire({
         title: "Are you sure?",
@@ -144,7 +147,7 @@ $('table tbody').on('click', '.delete', function () {
         confirmButtonText: "Yes, delete it!"
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location = "/Home/delete/" + id;
+            window.location = "/Home/Delete/" + id;
         }
     })
 })

@@ -2,26 +2,26 @@
 <form class="pt-3" method="post" id="formData" action="/Home/UpdateData">
     <label class=" col-form-label">Employee Code</label>
     <div class="form-group">
-        <input type="text" class="form-control form-control-lg" id="employeeCode" name="employeeCode" value="@Model.currentEmployee.EmployeeCode" placeholder="Empmloyee Code" disabled>
-        <input type="hidden" class="form-control form-control-lg" id="employeeCode" name="employeeCode" value="@Model.currentEmployee.EmployeeCode" placeholder="Empmloyee Code">
+        <input type="text" class="form-control form-control-sm" id="employeeCode" name="employeeCode" value="@Model.currentEmployee.EmployeeCode" placeholder="Empmloyee Code" disabled>
+        <input type="hidden" class="form-control form-control-sm" id="employeeCode" name="employeeCode" value="@Model.currentEmployee.EmployeeCode" placeholder="Empmloyee Code">
 
     </div>
     <label class=" col-form-label">FIrst Name</label>
     <div class="form-group">
-        <input type="text" class="form-control form-control-lg" id="firstname" name="firstname" value="@Model.currentEmployee.FirstName" placeholder="Firstname" disabled>
+        <input type="text" class="form-control form-control-sm" id="firstname" name="firstname" value="@Model.currentEmployee.FirstName" placeholder="Firstname" disabled>
     </div>
     <label class=" col-form-label">Last Name</label>
     <div class="form-group">
-        <input type="text" class="form-control form-control-lg" id="lastname" name="lastname" value="@Model.currentEmployee.LastName" placeholder="Lastname" disabled>
+        <input type="text" class="form-control form-control-sm" id="lastname" name="lastname" value="@Model.currentEmployee.LastName" placeholder="Lastname" disabled>
     </div>
     <label class=" col-form-label">Email</label>
     <div class="form-group">
-        <input type="email" class="form-control form-control-lg" id="email" name="email" value="@Model.currentEmployee.Email" placeholder="Email" disabled>
+        <input type="email" class="form-control form-control-sm" id="email" name="email" value="@Model.currentEmployee.Email" placeholder="Email" disabled>
 
     </div>
     <label class=" col-form-label">Password</label>
     <div class="form-group">
-        <input type="password" class="form-control form-control-lg" id="password" name="password" value="@Model.currentEmployee.Password" placeholder="Password" disabled>
+        <input type="password" class="form-control form-control-sm" id="password" name="password" value="@Model.currentEmployee.Password" placeholder="Password" disabled>
 
     </div>
     <label class=" col-form-label">Date of Birth</label>
@@ -30,18 +30,18 @@
             @{
                 string birthdate = Model.currentEmployee.BirthDate == DateTime.MinValue ? "" : Model.currentEmployee.BirthDate.ToString("yyyy-MM-dd");
             }
-            @Html.TextBoxFor(t => t.currentEmployee.BirthDate, birthdate, new { @class = "form-control", @type = "date", disabled = "disabled" })
+            @Html.TextBoxFor(t => t.currentEmployee.BirthDate, birthdate, new { @class = "form-control-sm ", @type = "date", disabled = "disabled" })
         </div>
     </div>
     <label class=" col-form-label">Gender</label>
     <div class="form-check form-check-primary">
         <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="gender" value="male" id="male" @(Model.currentEmployee.Gender == "male" ? "checked" : "") disabled> Male
+            <input type="radio" class="form-check-input" name="gender" value="male" id="male" @(Model.currentEmployee.Gender == "Male" ? "checked" : "") disabled> Male
         </label>
     </div>
     <div class="form-check form-check-primary">
         <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="gender" value="female" id="female" @(Model.currentEmployee.Gender == "female" ? "checked" : "") disabled> Female
+            <input type="radio" class="form-check-input" name="gender" value="female" id="female" @(Model.currentEmployee.Gender == "Female" ? "checked" : "") disabled> Female
         </label>
     </div>
 
@@ -54,14 +54,14 @@
          Text = dep.Name,
          Value = dep.DepartmentID.ToString(),
          Selected = dep.Name == Model.currentEmployee.Department.Name
-     }), "Select Department", new { @class = "form-select form-select-lg", id = "department", required = "required" })
+     }), "Select Department", new { @class = "form-select form-control-sm ", id = "department", required = "required" })
 
     </div>
-    <label class="col-form-label">Reprting Person</label>
+    <label class="col-form-label">Reporting Person</label>
     <div class="form-group row m-0">
         @if (Model.currentEmployee.Employee2 == null)
         {
-            <select class="form-select form-select-lg" id="reportingPerson" name="reportingPerson" placeholder="Reporting Person" value="Not Assigned">
+            <select class="form-select form-control-sm  form-select" id="reportingPerson" name="reportingPerson" placeholder="Reporting Person" value="Not Assigned">
                 @foreach (var emp in Model.employees)
                 {
                     
@@ -73,7 +73,7 @@
         }
         else
         {
-            <select class="form-select form-select-lg" id="reportingPerson" name="reportingPerson" placeholder="Reporting Person" value="@Model.currentEmployee.Employee2.EmployeeCode - @Model.currentEmployee.Employee2.FirstName @Model.currentEmployee.Employee2.LastName">
+            <select class="form-select form-control-sm  form-select" id="reportingPerson" name="reportingPerson" placeholder="Reporting Person" value="@Model.currentEmployee.Employee2.EmployeeCode - @Model.currentEmployee.Employee2.FirstName @Model.currentEmployee.Employee2.LastName">
                 @foreach (var emp in Model.employees)
                 {
                     <option>@emp.EmployeeCode - @emp.FirstName @emp.LastName</option>
@@ -86,7 +86,7 @@
 
 
     <div class="mt-3 d-grid gap-2">
-        <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Submit</button>
+        <button type="submit" class="btn btn-block btn-primary btn-sm font-weight-medium auth-form-btn">Submit</button>
     </div>
 
 </form>

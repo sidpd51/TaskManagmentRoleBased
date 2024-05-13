@@ -153,7 +153,7 @@ namespace TaskManagmentRoleBased.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdatedData(string employeeCode, int departmentID, string reportingPerson)
+        public ActionResult UpdateData(string employeeCode, int departmentID, string reportingPerson)
         {
             var employee = db.Employees.FirstOrDefault(m => m.EmployeeCode == employeeCode);
             if(reportingPerson == null)
@@ -196,16 +196,16 @@ namespace TaskManagmentRoleBased.Controllers
             return Json(new { data = items }, JsonRequestBehavior.AllowGet);
         }
 
-        public PartialViewResult GetData(int empId)
+        public PartialViewResult GetData(int id)
         {
-            if(empId == 0)
+            if(id == 0)
             {
                 Employee emp = new Employee();
                 return PartialView("_PartialPageTaskFOrm", emp);// have a look
             }
             else
             {
-                Employee currentEmp = db.Employees.Find(empId);
+                Employee currentEmp = db.Employees.Find(id);
 
                 var Employees = db.Employees.Where(m => m.DepartmentId != 1 && m.DepartmentId != 0 && m.DepartmentId != null).ToList();//have a look
                 var Departments = db.Departments.ToList();
@@ -214,18 +214,41 @@ namespace TaskManagmentRoleBased.Controllers
             }
         }
 
-        public ActionResult Delete(int empId)
+        //public ActionResult Delete(int id)
+        //{
+        //    var emp = db.Employees.Where(m => m.EmployeeID == id).FirstOrDefault();
+        //    var emp_task = db.Tasks.Where(m => m.EmployeeID == emp.EmployeeID).ToList();
+        //    foreach(var task in emp_task)
+        //    {
+        //        db.Tasks.Remove(task);
+        //    }
+        //    db.SaveChanges();
+        //    db.Employees.Remove(emp);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Director");
+
+        //}
+        public ActionResult Delete(int id)
         {
-            var emp = db.Employees.Where(m => m.EmployeeID == empId).FirstOrDefault();
-            var emp_task = db.Tasks.Where(m => m.EmployeeID == emp.EmployeeID).ToList();
-            db.Employees.Remove(emp);
-            foreach(var task in emp_task)
+            var emp = db.Employees.FirstOrDefault(m => m.EmployeeID == id);
+            if (emp != null)
             {
-                db.Tasks.Remove(task);
+                // Delete tasks associated with the employee
+                var emp_tasks = db.Tasks.Where(task => task.EmployeeID == emp.EmployeeID).ToList();
+                foreach (var task in emp_tasks)
+                {
+                    db.Tasks.Remove(task);
+                }
+
+                // Save changes to remove tasks
+                db.SaveChanges();
+
+                // Now delete the employee
+                db.Employees.Remove(emp);
+                db.SaveChanges();
             }
-            db.SaveChanges();
+
             return RedirectToAction("Director");
-                
         }
 
         [Authorize(Roles = "Director")]
