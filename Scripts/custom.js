@@ -56,7 +56,7 @@ $(document).ready(function () {
     })
     $(document).on('click', '.reject', function () {
         var id = $(this).data('id');
-
+        
         $.ajax({
             method: "POST",
             url: "/Home/Reject/" + id,
@@ -82,11 +82,9 @@ $(document).ready(function () {
     })
 
     $(document).on('click', '.edit', function () {
-        debugger
         var id = $(this).data('id');
         $('.modal-body').html('');
         console.log(id)
-        debugger
         if (id == undefined) {
             id = 0;
         }
@@ -95,14 +93,13 @@ $(document).ready(function () {
             url: "/Home/GetData/" + id,
             contentType: false,
             success: function (response) {
-                debugger
                 console.log(response);
                 $('.modal-body').append(response);
                 $('#myModal').modal('show');
                 $.validator.unobtrusive.parse($("#formData"));
                 $(document).on("change", "#department", function () {
-                    debugger
                     let id = $(this).val();
+                    let data = response.data;
                     console.log(id)
                     $.ajax({
                         method: 'GET',
@@ -111,13 +108,12 @@ $(document).ready(function () {
                             console.log(response.data);
                             $("#reportingPerson").empty();
                             let data = response.data;
-
                             for (let i = 0; i <= data.length; i++) {
                                 console.log(data[i]);
                                 let option = `<option value=${data[i].Value}>${data[i].Text}</option>`;
                                 $('#reportingPerson').append(option);
                                 if (data.length == 0) {
-                                    $('#reportingPerson').empty();
+                                    $('#reportingPerson').empty(); $('#myButton').attr('data-action')
                                     $('#reportingPerson').prop("disable", true);
                                     let option = `<option value=${data[i].Value}>not assigned</option>`;
                                     $('#reportingPerson').append(option);
@@ -135,7 +131,7 @@ $(document).ready(function () {
 })
 
 $('table tbody').on('click', '.delete', function () {
-    debugger
+
     var id = $(this).data('id');
     Swal.fire({
         title: "Are you sure?",

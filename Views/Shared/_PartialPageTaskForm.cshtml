@@ -1,10 +1,9 @@
 ﻿@model (TaskManagmentRoleBased.Models.Employee currentEmployee, List<TaskManagmentRoleBased.Models.Employee> employees, List<TaskManagmentRoleBased.Models.Department> departments)
-<form class="pt-3" method="post" id="formData" action="/Home/UpdateData">
+<form class="pt-3" method="post" id="formData" action="/Home/UpdateData" >
     <label class=" col-form-label">Employee Code</label>
     <div class="form-group">
         <input type="text" class="form-control form-control-sm" id="employeeCode" name="employeeCode" value="@Model.currentEmployee.EmployeeCode" placeholder="Empmloyee Code" disabled>
         <input type="hidden" class="form-control form-control-sm" id="employeeCode" name="employeeCode" value="@Model.currentEmployee.EmployeeCode" placeholder="Empmloyee Code">
-
     </div>
     <label class=" col-form-label">FIrst Name</label>
     <div class="form-group">
@@ -76,7 +75,7 @@
             <select class="form-select form-control-sm  form-select" id="reportingPerson" name="reportingPerson" placeholder="Reporting Person" value="@Model.currentEmployee.Employee2.EmployeeCode - @Model.currentEmployee.Employee2.FirstName @Model.currentEmployee.Employee2.LastName">
                 @foreach (var emp in Model.employees)
                 {
-                    <option>@emp.EmployeeCode - @emp.FirstName @emp.LastName</option>
+                    <option>@emp.EmployeeCode-@emp.FirstName @emp.LastName</option>
                 }
             </select>
         }

@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1996c5f1b0d64765b0caf674dcccddd7" Name="Diagram1">
+      <Diagram DiagramId="fcde78f1f0444efd9a72a3aa604c96ce" Name="Diagram1">
         <EntityTypeShape EntityType="office_sidpd_newModel.Department" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="office_sidpd_newModel.Employee" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="office_sidpd_newModel.Task" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
-        <AssociationConnector Association="office_sidpd_newModel.FK__Employee__Depart__44FF419A" ManuallyRouted="false" />
-        <AssociationConnector Association="office_sidpd_newModel.FK__Employee__Report__45F365D3" ManuallyRouted="false" />
-        <AssociationConnector Association="office_sidpd_newModel.FK__Task__ApprovedOr__4CA06362" ManuallyRouted="false" />
-        <AssociationConnector Association="office_sidpd_newModel.FK__Task__ApproverID__4BAC3F29" ManuallyRouted="false" />
-        <AssociationConnector Association="office_sidpd_newModel.FK__Task__EmployeeID__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="office_sidpd_newModel.FK__Employee__Depart__2645B050" ManuallyRouted="false" />
+        <AssociationConnector Association="office_sidpd_newModel.FK__Employee__Report__2739D489" ManuallyRouted="false" />
+        <AssociationConnector Association="office_sidpd_newModel.FK__Task__ApprovedOr__2DE6D218" ManuallyRouted="false" />
+        <AssociationConnector Association="office_sidpd_newModel.FK__Task__ApproverID__2CF2ADDF" ManuallyRouted="false" />
+        <AssociationConnector Association="office_sidpd_newModel.FK__Task__EmployeeID__2BFE89A6" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

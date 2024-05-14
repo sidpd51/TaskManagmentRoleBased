@@ -32,7 +32,7 @@ namespace TaskManagmentRoleBased.Controllers
             if(ModelState.IsValid)
             {
                 emp.DepartmentId = 3;
-                emp.ReportingPerson = 1;
+                emp.ReportingPerson = 3;//John Doe director
                 db.Employees.Add(emp);  
                 db.SaveChanges();
                 return RedirectToAction("Login");

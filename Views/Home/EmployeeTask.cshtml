@@ -35,8 +35,8 @@
                                 <td>@t.Status</td>
                                 <td>@t.CreatedOn.ToString("dd/MM/yyyy")</td>
                                 <td>
-                                    <button type="button" data-id="@t.TaskID" class="btn btn-gradient-success approve" @(t.Status == "Approved   " || t.Status == "Rejected" ? "disabled" : "")>Approve</button>
-                                    <button type="button" data-id="@t.TaskID" class="btn btn-gradient-danger reject" @(t.Status == "Approved   " || t.Status == "Rejected" ? "disabled" : "")>Reject</button>
+                                    <button type="button" data-id="@t.TaskID" class="btn btn-success btn-sm approve" @(t.Status == "Approved   " || t.Status == "Rejected" ? "disabled" : "")>Approve</button>
+                                    <button type="button" data-id="@t.TaskID" class="btn btn-danger btn-sm reject" @(t.Status == "Approved   " || t.Status == "Rejected" ? "disabled" : "")>Reject</button>
                                 </td>
                             </tr>
                         }

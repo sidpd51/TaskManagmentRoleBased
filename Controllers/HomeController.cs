@@ -153,24 +153,23 @@ namespace TaskManagmentRoleBased.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateData(string employeeCode, int departmentID, string reportingPerson)
+        public ActionResult UpdateData(string employeeCode, int department, string reportingPerson)
         {
             var employee = db.Employees.FirstOrDefault(m => m.EmployeeCode == employeeCode);
-            if(reportingPerson == null)
+            if (reportingPerson == null)
             {
-                reportingPerson = "SIT-465-Siddharth pd";
+                reportingPerson = "SIT-3-John-Doe";
             }
             var reportingPersonCode = reportingPerson.Split('-')[0].Trim() + "-" + reportingPerson.Split('-')[1].Trim();
 
             employee.Employee2 = db.Employees.Where(m => m.EmployeeCode == reportingPersonCode).FirstOrDefault();
-            employee.Department = db.Departments.FirstOrDefault(m => m.DepartmentID == departmentID);
+            employee.Department = db.Departments.FirstOrDefault(m => m.DepartmentID == department);
             List<Task> TasksForUpdate = db.Tasks.Where(m => m.Employee2.EmployeeID == employee.EmployeeID).ToList();
 
 
             foreach(Task task in TasksForUpdate)
             {
                 task.ApproverID = employee.Employee2.EmployeeID;
-
             }
 
             db.SaveChanges();
@@ -190,8 +189,8 @@ namespace TaskManagmentRoleBased.Controllers
             List<SelectListItem> items = db.Employees.Where( m => m.DepartmentId < id)//review this as director is at position 1 in my case
             .Select(emp => new SelectListItem
             {
-                Text = emp.EmployeeCode + emp.FirstName + emp.LastName,
-                Value = emp.EmployeeCode + emp.FirstName + emp.LastName,
+                Text = emp.EmployeeCode +"-"+ emp.FirstName + emp.LastName,
+                Value = emp.EmployeeCode +"-"+ emp.FirstName + emp.LastName,
             }).ToList();
             return Json(new { data = items }, JsonRequestBehavior.AllowGet);
         }
